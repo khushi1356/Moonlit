@@ -66,11 +66,15 @@ export const getCategories = async () => {
   return response.data;
 };
 export const createCategory = async (data) => {
-  const response = await apiClient.post('/categories', data);
+  const response = await apiClient.post('/categories', data, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return response.data;
 };
 export const updateCategory = async (id, data) => {
-  const response = await apiClient.put(`/categories/${id}`, data);
+  const response = await apiClient.put(`/categories/${id}`, data, {
+    headers: { 'Content-Type': 'multipart/form-data' },
+  });
   return response.data;
 };
 export const deleteCategory = async (id) => {

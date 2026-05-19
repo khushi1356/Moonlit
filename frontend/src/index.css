@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@theme {
+  /* THE ULTRA-PREMIUM SALON PALETTE */
+  --color-primary: #0A192F; /* Deep Navy Blue */
+  --color-primary-light: #112240; 
+  
+  --color-secondary: #FFFFFF; /* Pure White */
+  --color-secondary-light: #FAFAFA;
+  
+  --color-accent: #E6F1FF; /* Light blue accent */
+  --color-accent-dark: #CCD6F6; 
+
+  --color-text-dark: #0A192F;
+  --color-text-light: #FFFFFF;
+  --color-text-muted: #8892B0;
+
+  --font-sans: 'Inter', sans-serif;
+  --font-serif: 'Playfair Display', serif; /* High-fashion elegance */
+}
+
+@layer base {
+  :root {
+    --background: var(--color-secondary);
+    --foreground: var(--color-text-dark);
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale; /* This is for font rendering, not image colors */
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-serif);
+    font-weight: 400;
+  }
+}
+
+@layer utilities {
+  /* 3D and Animation Utilities */
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+  .preserve-3d {
+    transform-style: preserve-3d;
+  }
+  
+  /* Extremely smooth cinematic hover */
+  .hover-lift {
+    transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hover-lift:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 30px 60px rgba(26, 26, 26, 0.08);
+  }
+
+  .hover-scale {
+    transition: transform 1.2s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .hover-scale:hover {
+    transform: scale(1.03);
+  }
+
+  /* Thin elegant borders */
+  .hairline-b {
+    border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+  }
+  .hairline-t {
+    border-top: 1px solid rgba(26, 26, 26, 0.1);
+  }
+}
+
+/* Elegant Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-secondary);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-primary-light);
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-primary);
+}
+::selection {
+  background: var(--color-accent-dark);
+  color: var(--color-primary);
+}

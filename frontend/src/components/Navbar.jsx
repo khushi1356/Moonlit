@@ -53,8 +53,8 @@ const Navbar = () => {
     { name: 'ABOUT', path: '/about' },
     { name: 'SERVICES', path: '/services' },
     { name: 'STYLISTS', path: '/stylists' },
-    { name: 'GALLERY', path: '/', hash: 'gallery' },
-    { name: 'CONTACT', path: '/', hash: 'contact' },
+    { name: 'GALLERY', path: '/gallery' },
+    { name: 'CONTACT', path: '/contact' },
   ];
 
   return (

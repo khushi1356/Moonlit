@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Sparkles } from 'lucide-react';
+import { Lock, Mail } from 'lucide-react';
 import { loginStylist } from '../api/stylistApi';
 import toast from 'react-hot-toast';
 
@@ -55,21 +55,19 @@ const Login = () => {
         }}
       >
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{
-            width: '56px', height: '56px', borderRadius: '16px',
-            background: 'linear-gradient(135deg, var(--rose), #fb7185)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 16px',
-            boxShadow: '0 8px 20px rgba(225, 29, 72, 0.2)',
-          }}>
-            <Sparkles size={24} color="white" />
+          <div style={{ margin: '0 auto 20px', display: 'inline-block' }}>
+            <svg width="64" height="64" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="120" height="120" rx="28" fill="#0A1128"/>
+              <text x="60" y="82" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" fontSize="72" fontWeight="800" fill="#FCE7F3" textAnchor="middle" letterSpacing="-2">M</text>
+              <circle cx="92" cy="28" r="10" fill="#14B8A6"/>
+            </svg>
           </div>
           <h1 style={{
             fontFamily: "'Playfair Display', serif",
             fontSize: '28px', fontWeight: '700',
             color: 'var(--text-primary)', marginBottom: '6px',
           }}>Stylist Portal</h1>
-          <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Manage your schedule & appointments</p>
+          <p style={{ fontSize: '14px', color: 'var(--text-muted)' }}>Manage your schedule &amp; appointments</p>
         </div>
 
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>

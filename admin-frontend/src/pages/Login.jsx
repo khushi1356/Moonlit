@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { Lock, Mail, Sparkles } from 'lucide-react';
+import { Lock, Mail } from 'lucide-react';
 import toast from 'react-hot-toast';
 import axios from 'axios';
 
@@ -68,14 +68,12 @@ const Login = () => {
       >
         {/* Logo */}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-          <div style={{
-            width: '56px', height: '56px', borderRadius: '16px',
-            background: 'linear-gradient(135deg, var(--rose), #a78bfa)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            margin: '0 auto 16px',
-            boxShadow: '0 8px 30px rgba(244,114,182,0.3)',
-          }}>
-            <Sparkles size={24} color="white" />
+          <div style={{ margin: '0 auto 20px', display: 'inline-block' }}>
+            <svg width="64" height="64" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="120" height="120" rx="28" fill="#0A1128"/>
+              <text x="60" y="82" fontFamily="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" fontSize="72" fontWeight="800" fill="#FCE7F3" textAnchor="middle" letterSpacing="-2">M</text>
+              <circle cx="92" cy="28" r="10" fill="#14B8A6"/>
+            </svg>
           </div>
           <h1 style={{
             fontFamily: "'Playfair Display', serif",

@@ -1,11 +1,9 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 
-
 exports.protect = async (req, res, next) => {
     let token;
-    
-    // Check if token exists in Authorization header
+
     if (req.headers.authorization && req.headers.authorization.startsWith('Bearer')) {
         token = req.headers.authorization.split(' ')[1];
     }
@@ -15,10 +13,9 @@ exports.protect = async (req, res, next) => {
     }
 
     try {
-        // Verify token
-        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         
-        // Find user and attach to request object
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
         req.user = await User.findById(decoded.id).select('-password');
         next();
     } catch (error) {
@@ -26,7 +23,6 @@ exports.protect = async (req, res, next) => {
     }
 };
 
-// Role based authorization middleware
 exports.authorize = (...roles) => {
     return (req, res, next) => {
         if (!roles.includes(req.user.role)) {
@@ -39,15 +35,12 @@ exports.authorize = (...roles) => {
     };
 };
 
-// Helper function to generate JWT Token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '30d'
     });
 };
 
-// @desc    Verify OTP
-// @route   POST /api/auth/verify-otp [cite: 41, 42]
 exports.verifyOtp = async (req, res) => {
     try {
         const { email, otp } = req.body;
@@ -59,14 +52,12 @@ exports.verifyOtp = async (req, res) => {
             return res.status(400).json({ success: false, message: 'Email already verified' });
         }
 
-        // Check if OTP matches and is not expired
         if (user.otp !== otp || user.otpExpiry < Date.now()) {
             return res.status(400).json({ success: false, message: 'Invalid or expired OTP' });
         }
 
-        // Verification successful
         user.isEmailVerified = true;
-        user.otp = undefined; // Clear OTP fields
+        user.otp = undefined; 
         user.otpExpiry = undefined;
         await user.save();
 
@@ -77,8 +68,6 @@ exports.verifyOtp = async (req, res) => {
     }
 };
 
-// @desc    User Login
-// @route   POST /api/auth/login [cite: 43, 44]
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -94,11 +83,9 @@ exports.login = async (req, res) => {
             return res.status(401).json({ success: false, message: 'Please verify your email first using the OTP' });
         }
 
-        // Check password
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(401).json({ success: false, message: 'Invalid credentials' });
 
-        // Generate Token
         const token = generateToken(user._id);
 
         res.status(200).json({

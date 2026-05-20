@@ -1,13 +1,10 @@
 const User = require('../models/User');
 
-// @desc    Update User Profile (Custom logic for Stylist image)
-// @route   PUT /api/users/profile
 exports.updateProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id);
         const updateData = { ...req.body };
 
-        // Requirement Logic: Agar role 'stylist' hai aur purani image nahi hai, toh upload zaruri hai
         if (user.role === 'stylist') {
             if (!req.file && !user.profilePic) {
                 return res.status(400).json({ 
@@ -33,8 +30,6 @@ exports.updateProfile = async (req, res) => {
     }
 };
 
-// @desc    Get Current User Profile
-// @route   GET /api/users/profile
 exports.getProfile = async (req, res) => {
     try {
         const user = await User.findById(req.user._id).select('-password');
@@ -44,8 +39,6 @@ exports.getProfile = async (req, res) => {
     }
 };
 
-// @desc    Update user (Admin only)
-// @route   PUT /api/users/:id
 exports.updateUser = async (req, res) => {
     try {
         const user = await User.findByIdAndUpdate(req.params.id, req.body, {
@@ -61,8 +54,6 @@ exports.updateUser = async (req, res) => {
     }
 };
 
-// @desc    Get all users (Admin only)
-// @route   GET /api/users
 exports.getAllUsers = async (req, res) => {
     try {
         const users = await User.find().select('-password');
@@ -72,8 +63,6 @@ exports.getAllUsers = async (req, res) => {
     }
 };
 
-// @desc    Delete user (Admin only)
-// @route   DELETE /api/users/:id
 exports.deleteUser = async (req, res) => {
     try {
         const user = await User.findByIdAndDelete(req.params.id);

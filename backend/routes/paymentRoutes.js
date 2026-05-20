@@ -8,6 +8,5 @@ router.use(protect);
 router.post('/create-order', createOrder);
 router.post('/verify', verifyPayment);
 router.get('/history', getPaymentHistory);
-// Refund logic can be added similarly with Razorpay refund API
 
 module.exports = router;

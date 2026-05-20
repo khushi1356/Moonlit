@@ -80,7 +80,7 @@ const ReviewSection = ({ serviceId, serviceName }) => {
 
   return (
     <div className="mt-8 pt-8 border-t border-[var(--color-primary)]/10">
-      {/* Header */}
+      {}
       <div className="flex justify-between items-center mb-6">
         <div>
           <h4 className="text-sm tracking-widest uppercase font-bold text-[var(--color-primary)]">Reviews</h4>
@@ -145,7 +145,7 @@ const ReviewSection = ({ serviceId, serviceName }) => {
         )}
       </AnimatePresence>
 
-      {/* Reviews List */}
+      {}
       {loading ? (
         <p className="text-xs text-gray-400 italic font-serif">Loading reviews...</p>
       ) : reviews.length === 0 ? (

@@ -1,6 +1,5 @@
 import { motion } from 'framer-motion';
 
-// Reusable Scroll Animation Component
 export const FadeUp = ({ children, delay = 0, className = "", direction = "up", distance = 60 }) => {
   const yOffset = direction === "up" ? distance : direction === "down" ? -distance : 0;
   const xOffset = direction === "left" ? distance : direction === "right" ? -distance : 0;
@@ -17,7 +16,6 @@ export const FadeUp = ({ children, delay = 0, className = "", direction = "up", 
   );
 };
 
-// Cinematic Text Reveal (Word by Word)
 export const RevealText = ({ text, className = "", delay = 0, as = "div", style = {} }) => {
   const words = typeof text === 'string' ? text.split(" ") : [];
   const Tag = motion[as] || motion.div;

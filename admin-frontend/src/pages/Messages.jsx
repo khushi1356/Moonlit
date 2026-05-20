@@ -83,7 +83,7 @@ const MessagesPage = () => {
             }
           `}</style>
           
-          {/* Message List */}
+          {}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
             {messages.length > 0 ? messages.map((msg) => {
               const badge = statusBadge(msg.status);
@@ -114,12 +114,12 @@ const MessagesPage = () => {
             )}
           </div>
 
-          {/* Message Detail Panel */}
+          {}
           <div style={{ position: 'sticky', top: '90px' }}>
             {selected ? (
               <motion.div key={selected._id} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="card" style={{ padding: '32px' }}>
                 
-                {/* Header */}
+                {}
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '24px' }}>
                   <div>
                     <h3 style={{ fontSize: '20px', fontWeight: '700', color: 'var(--text-primary)', marginBottom: '4px' }}>{selected.subject}</h3>
@@ -144,12 +144,12 @@ const MessagesPage = () => {
                   </div>
                 </div>
 
-                {/* Message Body */}
+                {}
                 <div style={{ background: 'var(--bg-input)', border: '1px solid var(--border)', borderRadius: '16px', padding: '24px', fontSize: '14px', color: 'var(--text-secondary)', whiteSpace: 'pre-wrap', lineHeight: 1.6, marginBottom: '24px' }}>
                   {selected.message}
                 </div>
 
-                {/* Action Buttons */}
+                {}
                 <div style={{ display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
                   <button
                     onClick={() => setShowReplyBox(!showReplyBox)}
@@ -167,7 +167,7 @@ const MessagesPage = () => {
                   </a>
                 </div>
 
-                {/* In-App Reply Box */}
+                {}
                 <AnimatePresence>
                   {showReplyBox && (
                     <motion.div

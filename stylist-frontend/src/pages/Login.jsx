@@ -17,8 +17,7 @@ const Login = () => {
     setLoading(true);
     try {
       const res = await loginStylist(formData);
-      
-      // Basic check, ensure user is actually a stylist or admin
+
       if (res.user.role === 'customer') {
          throw new Error('Unauthorized Access: Customers cannot access the Stylist Portal.');
       }

@@ -7,7 +7,6 @@ router.route('/')
     .get(getCoupons) 
     .post(protect, authorize('admin'), createCoupon); 
 
-// Place /apply BEFORE /:id to prevent it from being treated as an ID
 router.post('/apply', applyCoupon);
 
 router.route('/:id')

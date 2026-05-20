@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { Menu, X, User, ArrowRight } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const Navbar = () => {
+const Navbar = React.memo(() => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,7 +11,7 @@ const Navbar = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  const handleHashClick = (e, hashId) => {
+  const handleHashClick = useCallback((e, hashId) => {
     e.preventDefault();
     setIsMobileMenuOpen(false);
     const newHash = `#${hashId}`;
@@ -26,7 +26,7 @@ const Navbar = () => {
       window.history.pushState(null, '', `/${newHash}`);
       document.getElementById(hashId)?.scrollIntoView({ behavior: 'smooth' });
     }
-  };
+  }, [location.pathname, navigate]);
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 60);
@@ -39,14 +39,14 @@ const Navbar = () => {
     setActiveHash(location.hash || '');
   }, [location]);
 
-  const checkIsActive = (link) => {
+  const checkIsActive = useCallback((link) => {
     if (link.hash) {
       return location.pathname === '/' && activeHash === `#${link.hash}`;
     } else if (link.path === '/') {
       return location.pathname === '/' && !activeHash;
     }
     return location.pathname === link.path;
-  };
+  }, [location.pathname, activeHash]);
 
   const navLinks = [
     { name: 'HOME', path: '/' },
@@ -108,7 +108,7 @@ const Navbar = () => {
       >
         <div className="max-w-[1600px] mx-auto px-6 md:px-12 flex justify-between items-center">
 
-          {/* Logo */}
+          {}
           <Link to="/" className="relative z-50 flex flex-col items-start justify-center group shrink-0">
             <div
               className="text-[var(--color-primary)] uppercase leading-none tracking-[0.18em]"
@@ -128,7 +128,7 @@ const Navbar = () => {
             </div>
           </Link>
 
-          {/* Desktop Navigation */}
+          {}
           <div className="hidden md:flex items-center space-x-10">
             {navLinks.map((link) => (
               <Link
@@ -146,10 +146,10 @@ const Navbar = () => {
             ))}
           </div>
 
-          {/* Action Buttons */}
+          {}
           <div className="hidden md:flex items-center space-x-6 relative z-50">
 
-            {/* User Profile / Login Button — Rectangular */}
+            {}
             {isLoggedIn ? (
               <Link
                 to="/profile"
@@ -169,7 +169,7 @@ const Navbar = () => {
             )}
           </div>
 
-          {/* Mobile menu button */}
+          {}
           <div className="md:hidden flex items-center gap-4 z-50">
             <button onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)} className="text-[var(--color-primary)] focus:outline-none">
               {isMobileMenuOpen ? <X className="w-7 h-7" /> : <Menu className="w-7 h-7" />}
@@ -178,7 +178,7 @@ const Navbar = () => {
         </div>
       </motion.nav>
 
-      {/* Mobile Navigation Overlay — Premium Full Screen */}
+      {}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
@@ -189,7 +189,7 @@ const Navbar = () => {
             className="md:hidden fixed inset-0 w-full h-screen z-40 flex flex-col"
             style={{ background: 'var(--color-primary)' }}
           >
-            {/* Top bar with logo + close */}
+            {}
             <div className="flex items-center justify-between px-6 py-6 border-b border-white/10">
               <Link to="/" onClick={() => setIsMobileMenuOpen(false)} className="flex flex-col items-start justify-center">
                 <div
@@ -214,7 +214,7 @@ const Navbar = () => {
               </button>
             </div>
 
-            {/* Nav Links */}
+            {}
             <div className="flex-1 flex flex-col justify-center px-8">
               {navLinks.map((link, i) => (
                 <motion.div
@@ -241,7 +241,7 @@ const Navbar = () => {
               ))}
             </div>
 
-            {/* Bottom Auth + Book Section */}
+            {}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -269,6 +269,6 @@ const Navbar = () => {
       </AnimatePresence>
     </>
   );
-};
+});
 
 export default Navbar;

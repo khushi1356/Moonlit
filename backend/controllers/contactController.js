@@ -39,7 +39,6 @@ exports.deleteContact = async (req, res) => {
     }
 };
 
-// Admin replies to a contact message → sends in-app notification to the customer
 exports.replyToContact = async (req, res) => {
     try {
         const { replyMessage } = req.body;
@@ -52,11 +51,10 @@ exports.replyToContact = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Contact message not found' });
         }
 
-        // Find the user by email so we can send them a notification
         const user = await User.findOne({ email: contact.email });
 
         if (user) {
-            // Create an in-app notification for the registered user
+            
             await Notification.create({
                 userId: user._id,
                 title: `Reply: ${contact.subject}`,
@@ -65,7 +63,6 @@ exports.replyToContact = async (req, res) => {
             });
         }
 
-        // Mark contact as resolved/replied
         await Contact.findByIdAndUpdate(req.params.id, { status: 'replied', isResolved: true });
 
         res.status(200).json({

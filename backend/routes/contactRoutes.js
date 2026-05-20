@@ -7,7 +7,6 @@ router.route('/')
     .post(submitContact)
     .get(protect, authorize('admin'), getContacts);
 
-// More specific route first — must come BEFORE /:id
 router.post('/:id/reply', protect, authorize('admin'), replyToContact);
 
 router.route('/:id')

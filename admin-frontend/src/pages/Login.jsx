@@ -38,7 +38,7 @@ const Login = () => {
       minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: 'var(--bg-base)', padding: '16px', position: 'relative', overflow: 'hidden',
     }}>
-      {/* Background glow orbs */}
+      {}
       <div style={{
         position: 'absolute', top: '-20%', left: '-10%',
         width: '500px', height: '500px', borderRadius: '50%',
@@ -66,7 +66,7 @@ const Login = () => {
           position: 'relative',
         }}
       >
-        {/* Logo */}
+        {}
         <div style={{ textAlign: 'center', marginBottom: '32px' }}>
           <div style={{ margin: '0 auto 20px', display: 'inline-block' }}>
             <svg width="64" height="64" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg">

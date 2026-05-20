@@ -82,7 +82,7 @@ const Dashboard = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '28px' }}>
-      {/* Header */}
+      {}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <div>
           <h1 style={{ fontFamily: "'Playfair Display', serif", fontSize: '28px', fontWeight: '700', color: 'var(--text-primary)' }}>
@@ -92,7 +92,7 @@ const Dashboard = () => {
         </div>
       </div>
 
-      {/* Stat Cards */}
+      {}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: '20px' }}>
         <StatCard title="Total Revenue" value={`₹${(stats?.revenue || 0).toLocaleString()}`} icon={DollarSign} trend={12.5} color="rose" delay={0.1} />
         <StatCard title="Total Bookings" value={stats?.totalBookings || 0} icon={Calendar} trend={8.2} color="teal" delay={0.15} />
@@ -100,9 +100,9 @@ const Dashboard = () => {
         <StatCard title="Active Stylists" value={stats?.stylists || 0} icon={Scissors} trend={5} color="amber" delay={0.25} />
       </div>
 
-      {/* Bottom Grid */}
+      {}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 380px', gap: '20px' }}>
-        {/* Revenue Chart placeholder */}
+        {}
         <motion.div
           initial={{ opacity: 0, x: -16 }}
           animate={{ opacity: 1, x: 0 }}
@@ -127,7 +127,7 @@ const Dashboard = () => {
               ))}
             </div>
           </div>
-          {/* Bar chart visual */}
+          {}
           <div style={{ display: 'flex', alignItems: 'flex-end', gap: '8px', height: '160px', padding: '10px 0' }}>
             {[65, 40, 80, 55, 90, 70, 85, 50, 75, 60, 95, 45].map((h, i) => (
               <div key={i} style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '4px' }}>
@@ -158,7 +158,7 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        {/* Recent Bookings */}
+        {}
         <motion.div
           initial={{ opacity: 0, x: 16 }}
           animate={{ opacity: 1, x: 0 }}

@@ -3,7 +3,6 @@ const router = express.Router();
 const passport = require('passport');
 const jwt = require('jsonwebtoken');
 
-// 1. Controller se saare functions carefully destructure karein
 const { 
     register, 
     verifyOtp, 
@@ -16,14 +15,12 @@ const { updateProfile } = require('../controllers/userController');
 const { protect } = require('../middlewares/authMiddleware');
 const { upload } = require('../config/cloudinary');
 
-// --- Standard Auth Routes ---
 router.post('/register', register);
 router.post('/verify-otp', verifyOtp);
 router.post('/login', login);
 router.post('/forgot-password', forgotPassword);
 router.post('/reset-password', resetPassword);
 
-// --- Get Current User Profile ---
 router.get('/profile', protect, async (req, res) => {
     try {
         const User = require('../models/User');
@@ -35,10 +32,8 @@ router.get('/profile', protect, async (req, res) => {
     }
 });
 
-// --- User Profile Route ---
 router.put('/profile', protect, upload.single('profilePic'), updateProfile);
 
-// --- Google OAuth Routes ---
 router.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 
 router.get('/google/callback', 

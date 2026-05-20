@@ -1,29 +1,26 @@
-// server.js (Updated)
+
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const compression = require('compression');
 const connectDB = require('./config/db');
 
-// Load env vars
 dotenv.config();
 
-// Connect to database
 connectDB();
 
 const app = express();
 
-// Middlewares
+app.use(compression());
 app.use(express.json());
 app.use(cors());
 
-// Passport setup
 require('./config/passport');
 const passport = require('passport');
 app.use(passport.initialize());
 
-// Routes
 app.use('/api/auth', require('./routes/authRoutes'));
-app.use('/api/users', require('./routes/userRoutes')); // Users & Profile update
+app.use('/api/users', require('./routes/userRoutes')); 
 app.use('/api/services', require('./routes/serviceRoutes'));
 app.use('/api/categories', require('./routes/categoryRoutes'));
 app.use('/api/stylists', require('./routes/stylistRoutes'));

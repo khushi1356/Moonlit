@@ -1,12 +1,13 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Clock, ArrowRight, ChevronDown, ChevronUp, X, ListFilter } from 'lucide-react';
 import { getServices, getCategories } from '../api/servicesApi';
 import { Link } from 'react-router-dom';
-import ReviewSection from '../components/ReviewSection';
-import { FadeUp, RevealText } from '../components/Animations';
+import ReviewSection from '../components/common/ReviewSection';
+import { FadeUp, RevealText } from '../components/animations';
+import SEO from '../components/seo/SEO';
 
-const Services = () => {
+const Services = React.memo(() => {
   const [activeCategory, setActiveCategory] = useState("All");
   const [servicesData, setServicesData] = useState([]);
   const [categories, setCategories] = useState(["All"]);
@@ -46,14 +47,21 @@ const Services = () => {
     fetchData();
   }, []);
 
-  const getServiceCategoryName = (service) => service.category?.name || service.categoryId?.name || "Other";
-  const filteredServices = activeCategory === "All" 
-    ? servicesData 
-    : servicesData.filter(service => getServiceCategoryName(service).trim().toLowerCase() === activeCategory.trim().toLowerCase());
+  const getServiceCategoryName = useCallback((service) => service.category?.name || service.categoryId?.name || "Other", []);
+  
+  const filteredServices = useMemo(() => {
+    return activeCategory === "All" 
+      ? servicesData 
+      : servicesData.filter(service => getServiceCategoryName(service).trim().toLowerCase() === activeCategory.trim().toLowerCase());
+  }, [activeCategory, servicesData, getServiceCategoryName]);
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-[var(--color-bg-light)] text-[var(--color-primary)]">
-      {/* Header */}
+      <SEO 
+        title="Services" 
+        description="Explore our curated treatments including haircuts, facials, manicures, and massages. Discover the ultimate relaxation and beauty experience at Moonlit Salon."
+      />
+      {}
       <div className="px-4 md:px-12 max-w-[1400px] mx-auto mb-10 md:mb-16">
         <FadeUp>
           <p className="text-xs tracking-widest uppercase font-bold text-[var(--color-text-muted)] mb-6">
@@ -66,13 +74,13 @@ const Services = () => {
           className="text-4xl md:text-6xl font-serif uppercase tracking-tighter mb-8 md:mb-12 text-[var(--color-primary)]" 
         />
 
-        {/* Desktop Categories Cards Filter */}
+        {}
         {!loading && categoryDetails.length > 0 && (
           <motion.div 
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.4 }}
             className="hidden md:flex gap-8 overflow-x-auto pb-4 scrollbar-hide snap-x"
           >
-            {/* 'All' Category Card */}
+            {}
             <button
               onClick={() => setActiveCategory("All")}
               className={`flex-shrink-0 snap-start flex flex-col items-center gap-4 transition-all duration-300 ${
@@ -105,6 +113,7 @@ const Services = () => {
                   <img 
                     src={cat.imageUrl || cat.image || 'https://images.unsplash.com/photo-1560066984-138daaa5de74?w=400&q=80'} 
                     alt={cat.name}
+                    loading="lazy"
                     className={`w-full h-full object-cover transition-all duration-700 hover:scale-110 ${
                       activeCategory === cat.name ? 'brightness-100' : 'brightness-90'
                     }`}
@@ -118,7 +127,7 @@ const Services = () => {
           </motion.div>
         )}
 
-        {/* Mobile Filter Button */}
+        {}
         {!loading && categoryDetails.length > 0 && (
           <div className="md:hidden flex items-center justify-between border-b border-[var(--color-primary)]/10 pb-4 mb-4">
             <span className="text-[10px] uppercase font-bold tracking-widest text-gray-500">
@@ -153,7 +162,7 @@ const Services = () => {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  viewport={{ once: false, amount: 0.1 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.5, delay: (index % 4) * 0.05 }}
                   className="group flex flex-col"
                 >
@@ -161,6 +170,7 @@ const Services = () => {
                     <img 
                       src={service.image || 'https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80'} 
                       alt={service.name}
+                      loading="lazy"
                       className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
                     />
                     <div className="absolute top-2 right-2 bg-white/90 backdrop-blur-sm px-2 py-1 rounded text-[10px] md:text-xs font-bold text-[var(--color-primary)] shadow">
@@ -201,7 +211,7 @@ const Services = () => {
         )}
       </div>
 
-      {/* Global Review Modal */}
+      {}
       <AnimatePresence>
         {expandedServiceId && (
           <div className="fixed inset-0 z-50 flex items-center justify-center p-4 md:p-8">
@@ -231,17 +241,17 @@ const Services = () => {
         )}
       </AnimatePresence>
 
-      {/* Mobile Filter Sidebar Drawer */}
+      {}
       <AnimatePresence>
         {isFilterOpen && (
           <div className="fixed inset-0 z-[60] flex md:hidden">
-            {/* Backdrop */}
+            {}
             <motion.div 
               initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
               onClick={() => setIsFilterOpen(false)}
               className="absolute inset-0 bg-black/60 backdrop-blur-sm"
             />
-            {/* Sidebar */}
+            {}
             <motion.div
               initial={{ x: '100%' }} animate={{ x: 0 }} exit={{ x: '100%' }} transition={{ type: 'spring', damping: 25, stiffness: 200 }}
               className="absolute right-0 top-0 bottom-0 w-[80%] max-w-sm bg-white shadow-2xl flex flex-col"
@@ -277,6 +287,7 @@ const Services = () => {
                       <img 
                         src={cat.imageUrl || cat.image || 'https://images.unsplash.com/photo-1560066984-138daaa5de74?w=400&q=80'} 
                         alt={cat.name}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>
@@ -290,6 +301,6 @@ const Services = () => {
       </AnimatePresence>
     </div>
   );
-};
+});
 
 export default Services;

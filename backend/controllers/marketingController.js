@@ -2,25 +2,20 @@ const User = require('../models/User');
 const sendEmail = require('../utils/sendEmail');
 const EmailCampaign = require('../models/EmailCampaign');
 
-// @desc    Send bulk promotional emails
-// @route   POST /api/marketing/send-email
-// @access  Admin
 exports.sendBulkEmail = async (req, res) => {
     try {
-        const { subject, bodyHtml, targetAudience } = req.body; // bodyHtml is coming from React Rich Text Editor
+        const { subject, bodyHtml, targetAudience } = req.body; 
 
         if (!subject || !bodyHtml) {
             return res.status(400).json({ success: false, message: 'Please provide subject and body content' });
         }
 
         let query = { role: 'customer' };
-        
-        // Example filter logic based on targetAudience (expand as needed)
+
         if (targetAudience === 'premium') {
-            // Suppose you had a premium flag, you'd add it here. For now, we'll just use a placeholder
-            // query.isPremium = true;
+
         } else if (targetAudience === 'inactive') {
-            // Find users who haven't logged in recently (requires lastLogin field in User model)
+            
             const thirtyDaysAgo = new Date(Date.now() - 30 * 24 * 60 * 60 * 1000);
             query.updatedAt = { $lt: thirtyDaysAgo };
         }
@@ -31,10 +26,8 @@ exports.sendBulkEmail = async (req, res) => {
             return res.status(404).json({ success: false, message: 'No customers found for this audience' });
         }
 
-        // Map emails to an array
         const emailList = customers.map(user => user.email);
 
-        // Send mail to multiple recipients using Bcc to hide other emails
         const nodemailer = require('nodemailer');
         const transporter = nodemailer.createTransport({
             service: 'Gmail',
@@ -45,7 +38,7 @@ exports.sendBulkEmail = async (req, res) => {
 
         await transporter.sendMail({
             from: `"Moonlit" <${process.env.EMAIL_USER}>`,
-            bcc: emailList.join(','), // Multiple emails in BCC
+            bcc: emailList.join(','), 
             subject: subject,
             html: formattedHtml
         });
@@ -64,9 +57,6 @@ exports.sendBulkEmail = async (req, res) => {
     }
 };
 
-// @desc    Get all email campaigns
-// @route   GET /api/marketing
-// @access  Admin
 exports.getCampaigns = async (req, res) => {
     try {
         const campaigns = await EmailCampaign.find().sort({ createdAt: -1 });
@@ -76,9 +66,6 @@ exports.getCampaigns = async (req, res) => {
     }
 };
 
-// @desc    Delete an email campaign record
-// @route   DELETE /api/marketing/:id
-// @access  Admin
 exports.deleteCampaign = async (req, res) => {
     try {
         const campaign = await EmailCampaign.findByIdAndDelete(req.params.id);

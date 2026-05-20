@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar as CalendarIcon, Clock, CheckCircle, XCircle, User } from 'lucide-react';
 import { getStylistBookings, updateBookingStatus } from '../api/stylistApi';
 import toast from 'react-hot-toast';
 
-const Schedule = () => {
+const Schedule = React.memo(() => {
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('all');
@@ -36,7 +36,9 @@ const Schedule = () => {
   };
 
   const statusFilters = ['all', 'pending', 'confirmed', 'completed', 'cancelled'];
-  const filtered = filter === 'all' ? bookings : bookings.filter(b => b.status === filter);
+  const filtered = useMemo(() => {
+    return filter === 'all' ? bookings : bookings.filter(b => b.status === filter);
+  }, [filter, bookings]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -72,7 +74,7 @@ const Schedule = () => {
           <div className="loading-center"><div className="spinner" /></div>
         ) : (
           <>
-            {/* Desktop Table View */}
+            {}
             <div className="desktop-only" style={{ overflowX: 'auto', minHeight: '300px' }}>
               <table className="admin-table">
                 <thead>
@@ -175,7 +177,7 @@ const Schedule = () => {
               </table>
             </div>
 
-            {/* Mobile Card View */}
+            {}
             <div className="mobile-only" style={{ display: 'flex', flexDirection: 'column' }}>
               {filtered.length > 0 ? filtered.map((booking) => (
                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} key={`mob-${booking._id || booking.id}`} style={{ padding: '16px', borderBottom: '1px solid var(--border)' }}>
@@ -241,6 +243,6 @@ const Schedule = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Schedule;

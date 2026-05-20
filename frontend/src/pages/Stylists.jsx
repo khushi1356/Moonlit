@@ -1,11 +1,12 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { getStylists } from '../api/stylistApi';
-import { FadeUp, RevealText } from '../components/Animations';
+import { FadeUp, RevealText } from '../components/animations';
+import SEO from '../components/seo/SEO';
 
-const Stylists = () => {
+const Stylists = React.memo(() => {
   const [stylists, setStylists] = useState([]);
   const [loading, setLoading] = useState(true);
 
@@ -25,6 +26,10 @@ const Stylists = () => {
 
   return (
     <div className="min-h-screen pt-24 pb-16 bg-[var(--color-bg-light)] text-[var(--color-primary)]">
+      <SEO 
+        title="Stylists" 
+        description="Meet the master stylists at Moonlit Salon. Our dedicated experts are here to elevate your natural beauty."
+      />
       <div className="max-w-[1400px] mx-auto px-4 md:px-12 flex flex-col items-center text-center mb-12 md:mb-16">
         <FadeUp>
           <p className="text-[10px] md:text-xs tracking-widest uppercase font-bold text-[var(--color-text-muted)] mb-4 md:mb-6">
@@ -50,7 +55,7 @@ const Stylists = () => {
                 key={stylist._id || stylist.id}
                 initial={{ opacity: 0, y: 30 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: false, amount: 0.1 }}
+                viewport={{ once: true, amount: 0.1 }}
                 transition={{ delay: (index % 4) * 0.1, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
                 className="group cursor-pointer flex flex-col"
               >
@@ -58,6 +63,7 @@ const Stylists = () => {
                   <img 
                     src={stylist.userId?.profilePic || 'https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?ixlib=rb-4.0.3&auto=format&fit=crop&w=687&q=80'} 
                     alt={stylist.userId?.name}
+                    loading="lazy"
                     className="w-full h-full object-cover transition-all duration-700 ease-out group-hover:scale-105"
                   />
                   <div className="absolute inset-0 bg-[var(--color-primary)]/50 mix-blend-multiply opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center p-2">
@@ -92,6 +98,6 @@ const Stylists = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Stylists;

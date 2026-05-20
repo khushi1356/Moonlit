@@ -52,7 +52,7 @@ const ServicesPage = () => {
     try {
       const fd = new FormData();
       Object.keys(form).forEach(k => fd.append(k, form[k]));
-      fd.append('mrp', form.price); // Ensure mrp is sent
+      fd.append('mrp', form.price); 
       if (imageFile) fd.append('image', imageFile);
       if (editing) { await updateService(editing._id, fd); toast.success('Service updated'); }
       else { await createService(fd); toast.success('Service created'); }
@@ -73,7 +73,7 @@ const ServicesPage = () => {
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
+      {}
       <div className="page-header">
         <div>
           <h1 className="page-title">Services</h1>
@@ -97,7 +97,7 @@ const ServicesPage = () => {
               className="card"
               style={{ overflow: 'hidden' }}
             >
-              {/* Image / Icon area */}
+              {}
               <div style={{
                 height: '140px', background: s.image
                   ? `url(${s.image}) center/cover no-repeat`
@@ -158,7 +158,7 @@ const ServicesPage = () => {
         </div>
       )}
 
-      {/* Modal */}
+      {}
       <AnimatePresence>
         {isModalOpen && (
           <motion.div
@@ -185,7 +185,7 @@ const ServicesPage = () => {
               </div>
 
               <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                {/* Image upload */}
+                {}
                 <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
                   <label htmlFor="imgUpload" className="img-upload-box">
                     {imagePreview

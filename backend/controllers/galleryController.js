@@ -7,7 +7,7 @@ exports.addImage = async (req, res) => {
         }
 
         const newImage = await Gallery.create({
-            imageUrl: req.file.path, // Cloudinary provides the URL in req.file.path
+            imageUrl: req.file.path, 
             caption: req.body.caption,
             category: req.body.category
         });

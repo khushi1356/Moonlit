@@ -29,7 +29,7 @@ apiClient.interceptors.response.use(
     if (error.response && error.response.status === 401) {
       localStorage.removeItem('token');
       localStorage.removeItem('user');
-      // Only toast if it's not the profile endpoint trying to verify token on load
+      
       if (!error.config.url.includes('/auth/profile')) {
         toast.error('Session expired. Please log in again.');
         window.location.href = '/login';

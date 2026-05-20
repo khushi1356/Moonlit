@@ -4,8 +4,6 @@ const { addStylist, getAllStylists, updateStylist, deleteStylist } = require('..
 const { protect, authorize } = require('../middlewares/authMiddleware');
 const { upload } = require('../config/cloudinary');
 
-// GET  /api/stylists -> Koi bhi customer app par stylists dekh sakta hai
-// POST /api/stylists -> Sirf Admin naya stylist create kar sakta hai with profile pic
 router.route('/')
     .get(getAllStylists)
     .post(protect, authorize('admin'), upload.single('profilePic'), addStylist);

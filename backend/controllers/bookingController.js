@@ -8,22 +8,18 @@ const razorpay = new Razorpay({
     key_secret: process.env.RAZORPAY_KEY_SECRET,
 });
 
-// @desc    Create new booking
-// @route   POST /api/bookings
-// @access  Private (Customer)
 exports.createBooking = async (req, res) => {
     try {
         const { serviceIds, stylistId, bookingDate, timeSlot } = req.body;
 
-        // Calculate total amount from services
         const services = await Service.find({ _id: { $in: serviceIds } });
         let totalAmount = 0;
         services.forEach(service => {
-            totalAmount += service.price; // Discounted price
+            totalAmount += service.price; 
         });
 
         const booking = await Booking.create({
-            userId: req.user._id, // Got from authMiddleware
+            userId: req.user._id, 
             serviceIds,
             stylistId,
             bookingDate,
@@ -37,9 +33,6 @@ exports.createBooking = async (req, res) => {
     }
 };
 
-// @desc    Get logged in user bookings
-// @route   GET /api/bookings/my
-// @access  Private
 exports.getMyBookings = async (req, res) => {
     try {
         const bookings = await Booking.find({ userId: req.user._id })
@@ -52,9 +45,6 @@ exports.getMyBookings = async (req, res) => {
     }
 };
 
-// @desc    Update booking status
-// @route   PATCH /api/bookings/:id/status
-// @access  Private/Admin
 exports.updateBookingStatus = async (req, res) => {
     try {
         const { status } = req.body;
@@ -92,9 +82,6 @@ exports.updateBookingStatus = async (req, res) => {
     }
 };
 
-// @desc    Get all appointments
-// @route   GET /api/bookings
-// @access  Admin or Stylist
 exports.getAllBookings = async (req, res) => {
     try {
         const query = req.user.role === 'stylist' ? { stylistId: req.user._id } : {};
@@ -109,9 +96,6 @@ exports.getAllBookings = async (req, res) => {
     }
 };
 
-// @desc    Cancel booking
-// @route   DELETE /api/bookings/:id
-// @access  Private (Admin or the Customer who booked it)
 exports.deleteBooking = async (req, res) => {
     try {
         const booking = await Booking.findById(req.params.id);
@@ -120,12 +104,10 @@ exports.deleteBooking = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Booking not found' });
         }
 
-        // Make sure the user owns the booking, or is an admin
         if (booking.userId.toString() !== req.user._id.toString() && req.user.role !== 'admin') {
             return res.status(403).json({ success: false, message: 'Not authorized to delete this booking' });
         }
 
-        // Process refund if payment was captured
         const payment = await Payment.findOne({ bookingId: req.params.id, status: 'captured' });
         if (payment && payment.razorpay_payment_id) {
             try {

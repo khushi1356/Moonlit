@@ -4,34 +4,27 @@ const crypto = require('crypto');
 const jwt = require('jsonwebtoken');
 const sendEmail = require('../utils/sendEmail');
 
-// Helper function to generate JWT Token
 const generateToken = (id) => {
     return jwt.sign({ id }, process.env.JWT_SECRET, {
         expiresIn: '30d'
     });
 };
 
-// @desc    Register a new user & Send OTP
-// @route   POST /api/auth/register
 exports.register = async (req, res) => {
     try {
         const { name, email, password, phone } = req.body;
 
-        // Check if user exists
         let user = await User.findOne({ email });
         if (user) {
             return res.status(400).json({ success: false, message: 'User already exists' });
         }
 
-        // Hash Password
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
-        // Generate 6-digit OTP using crypto
         const otp = crypto.randomInt(100000, 999999).toString();
-        const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes expiry
+        const otpExpiry = new Date(Date.now() + 10 * 60 * 1000); 
 
-        // Create User
         user = await User.create({
             name,
             email,
@@ -41,7 +34,6 @@ exports.register = async (req, res) => {
             otpExpiry
         });
 
-        // Send Email (Ensure your .env has EMAIL_USER and EMAIL_PASS set up)
         await sendEmail({
             email: user.email,
             subject: 'Verify your account',
@@ -62,8 +54,6 @@ exports.register = async (req, res) => {
     }
 };
 
-// @desc    Verify OTP
-// @route   POST /api/auth/verify-otp
 exports.verifyOtp = async (req, res) => {
     try {
         const { email, otp } = req.body;
@@ -91,8 +81,6 @@ exports.verifyOtp = async (req, res) => {
     }
 };
 
-// @desc    User Login
-// @route   POST /api/auth/login
 exports.login = async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -104,7 +92,6 @@ exports.login = async (req, res) => {
         const user = await User.findOne({ email });
         if (!user) return res.status(401).json({ success: false, message: 'Invalid credentials' });
 
-        // Only require email verification for customers (admin/stylist are created by the system)
         if (user.role === 'customer' && !user.isEmailVerified) {
             return res.status(401).json({ success: false, message: 'Please verify your email first using the OTP' });
         }
@@ -131,9 +118,6 @@ exports.login = async (req, res) => {
     }
 };
 
-
-// @desc    Forgot Password - Send OTP
-// @route   POST /api/auth/forgot-password
 exports.forgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -160,8 +144,6 @@ exports.forgotPassword = async (req, res) => {
     }
 };
 
-// @desc    Reset Password
-// @route   POST /api/auth/reset-password
 exports.resetPassword = async (req, res) => {
     try {
         const { email, otp, newPassword } = req.body;

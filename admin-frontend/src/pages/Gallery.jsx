@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Plus, Trash2, X, Image as ImageIcon, Upload, Eye } from 'lucide-react';
 import { getGallery, createGalleryItem, deleteGalleryItem } from '../api/adminApi';
 import toast from 'react-hot-toast';
 
-const GalleryPage = () => {
+const GalleryPage = React.memo(() => {
   const [gallery, setGallery] = useState([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -180,7 +180,7 @@ const GalleryPage = () => {
         )}
       </AnimatePresence>
 
-      {/* Full Screen Image Viewer Modal */}
+      {}
       <AnimatePresence>
         {viewImage && (
           <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -208,6 +208,6 @@ const GalleryPage = () => {
       </AnimatePresence>
     </div>
   );
-};
+});
 
 export default GalleryPage;

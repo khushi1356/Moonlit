@@ -41,7 +41,7 @@ const Footer = () => {
       <div className="max-w-[1600px] mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-16 md:gap-8 mb-24">
           
-          {/* Brand & Mission */}
+          {}
           <div className="md:col-span-5 flex flex-col justify-between">
             <div>
               <Link to="/" className="relative flex flex-col items-start justify-center group shrink-0 mb-8">
@@ -68,10 +68,10 @@ const Footer = () => {
             </div>
           </div>
 
-          {/* Spacer */}
+          {}
           <div className="hidden md:block md:col-span-1" />
 
-          {/* Explore Links */}
+          {}
           <div className="md:col-span-2">
             <h4 className="text-xs font-bold mb-8 uppercase tracking-[0.2em] text-gray-500">Explore</h4>
             <ul className="space-y-4">
@@ -85,7 +85,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Socials */}
+          {}
           <div className="md:col-span-1">
             <h4 className="text-xs font-bold mb-8 uppercase tracking-[0.2em] text-gray-500">Social</h4>
             <ul className="space-y-4">
@@ -99,7 +99,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Newsletter */}
+          {}
           <div className="md:col-span-3">
             <h4 className="text-xs font-bold mb-8 uppercase tracking-[0.2em] text-gray-500">The List</h4>
             <p className="text-gray-400 text-sm mb-8 leading-relaxed font-light">
@@ -126,7 +126,7 @@ const Footer = () => {
 
         </div>
         
-        {/* Bottom Bar */}
+        {}
         <div className="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center text-xs tracking-[0.1em] uppercase text-gray-500 gap-6">
           <div className="flex flex-col gap-3">
             <p>&copy; {new Date().getFullYear()} MOONLIT STUDIO. ALL RIGHTS RESERVED.</p>

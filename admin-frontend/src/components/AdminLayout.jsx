@@ -24,12 +24,12 @@ const AdminLayout = () => {
         }}
       />
 
-      {/* Sidebar Desktop */}
+      {}
       <div className="sidebar-desktop">
         <Sidebar onClose={() => setIsSidebarOpen(false)} />
       </div>
 
-      {/* Mobile sidebar overlay */}
+      {}
       {isSidebarOpen && (
         <div style={{ position: 'fixed', inset: 0, zIndex: 50, display: 'flex' }}>
           <div
@@ -42,7 +42,7 @@ const AdminLayout = () => {
         </div>
       )}
 
-      {/* Main */}
+      {}
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
         <Topbar toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
         <main style={{

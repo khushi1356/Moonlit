@@ -1,13 +1,9 @@
 const Service = require('../models/Service');
 
-// @desc    Create a new service
-// @route   POST /api/services
-// @access  Admin
 exports.createService = async (req, res) => {
     try {
         const serviceData = { ...req.body };
-        
-        // Auto-fill mrp if only price is provided from frontend
+
         if (serviceData.price && !serviceData.mrp) {
             serviceData.mrp = serviceData.price;
         } else if (serviceData.mrp && !serviceData.price) {
@@ -20,7 +16,7 @@ exports.createService = async (req, res) => {
         }
 
         if (req.file) {
-            serviceData.image = req.file.path; // Cloudinary URL
+            serviceData.image = req.file.path; 
         }
 
         const service = await Service.create(serviceData);
@@ -30,9 +26,6 @@ exports.createService = async (req, res) => {
     }
 };
 
-// @desc    Get all services
-// @route   GET /api/services
-// @access  Public
 exports.getServices = async (req, res) => {
     try {
         const services = await Service.find({ isActive: true }).populate('categoryId', 'name');
@@ -42,9 +35,6 @@ exports.getServices = async (req, res) => {
     }
 };
 
-// @desc    Get single service
-// @route   GET /api/services/:id
-// @access  Public
 exports.getServiceById = async (req, res) => {
     try {
         const service = await Service.findById(req.params.id).populate('categoryId', 'name');
@@ -55,19 +45,15 @@ exports.getServiceById = async (req, res) => {
     }
 };
 
-// @desc    Apply Bulk Discount
-// @route   POST /api/services/bulk-discount
-// @access  Admin
 exports.applyBulkDiscount = async (req, res) => {
     try {
         const { categoryId, discountPercentage } = req.body;
         
         let query = {};
-        if (categoryId) query.categoryId = categoryId; // Agar specific category pe lagana ho
+        if (categoryId) query.categoryId = categoryId; 
 
         const services = await Service.find(query);
-        
-        // Loop and save to trigger pre-save hook for price recalculation
+
         for (let service of services) {
             service.discountPercentage = discountPercentage;
             await service.save();
@@ -79,16 +65,13 @@ exports.applyBulkDiscount = async (req, res) => {
     }
 };
 
-// @desc    Reset Discounts
-// @route   POST /api/services/reset-discount
-// @access  Admin
 exports.resetDiscount = async (req, res) => {
     try {
         const services = await Service.find({ discountPercentage: { $gt: 0 } });
         
         for (let service of services) {
             service.discountPercentage = 0;
-            await service.save(); // Hooks will reset price = mrp
+            await service.save(); 
         }
 
         res.status(200).json({ success: true, message: 'All discounts reset to 0.' });
@@ -97,9 +80,6 @@ exports.resetDiscount = async (req, res) => {
     }
 };
 
-// @desc    Update service details
-// @route   PUT /api/services/:id
-// @access  Admin
 exports.updateService = async (req, res) => {
     try {
         let service = await Service.findById(req.params.id);
@@ -107,7 +87,6 @@ exports.updateService = async (req, res) => {
             return res.status(404).json({ success: false, message: 'Service not found' });
         }
 
-        // Using save() instead of findByIdAndUpdate to trigger the discount pre-save hook
         const updateData = { ...req.body };
         if (updateData.price && !updateData.mrp) {
             updateData.mrp = updateData.price;
@@ -127,9 +106,6 @@ exports.updateService = async (req, res) => {
     }
 };
 
-// @desc    Remove service
-// @route   DELETE /api/services/:id
-// @access  Admin
 exports.deleteService = async (req, res) => {
     try {
         const service = await Service.findById(req.params.id);

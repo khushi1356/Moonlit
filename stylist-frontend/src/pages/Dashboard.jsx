@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Calendar, Clock, Check, XCircle, Bell, User } from 'lucide-react';
 import { getStylistBookings, updateBookingStatus, getMyNotifications, markNotificationRead } from '../api/stylistApi';
 import toast from 'react-hot-toast';
 
-const Dashboard = () => {
+const Dashboard = React.memo(() => {
   const [bookings, setBookings] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -44,13 +44,13 @@ const Dashboard = () => {
     return <div className="loading-center"><div className="spinner" /></div>;
   }
 
-  const todaysBookings = bookings.filter(b => new Date(b.bookingDate).toDateString() === new Date().toDateString());
-  const pendingBookings = bookings.filter(b => b.status === 'pending');
-  const unreadCount = notifications.filter(n => !n.isRead).length;
+  const todaysBookings = useMemo(() => bookings.filter(b => new Date(b.bookingDate).toDateString() === new Date().toDateString()), [bookings]);
+  const pendingBookings = useMemo(() => bookings.filter(b => b.status === 'pending'), [bookings]);
+  const unreadCount = useMemo(() => notifications.filter(n => !n.isRead).length, [notifications]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-      {/* Header */}
+      {}
       <div className="page-header" style={{ alignItems: 'center' }}>
         <div>
           <h1 className="page-title">Welcome, {stylist.name || 'Stylist'}!</h1>
@@ -125,7 +125,7 @@ const Dashboard = () => {
         </motion.div>
       </div>
 
-      {/* Bookings Table */}
+      {}
       <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="card" style={{ overflow: 'hidden' }}>
         <div style={{ padding: '20px 24px', borderBottom: '1px solid var(--border)' }}>
           <h2 style={{ fontSize: '18px', fontWeight: '700', color: 'var(--text-primary)' }}>My Appointments</h2>
@@ -211,6 +211,6 @@ const Dashboard = () => {
       </motion.div>
     </div>
   );
-};
+});
 
 export default Dashboard;

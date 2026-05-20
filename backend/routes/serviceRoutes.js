@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-// 1. Controller se saare functions import karein (updateService aur deleteService add kar diye gaye hain)
 const { 
     createService, 
     getServices, 
@@ -14,7 +13,6 @@ const {
 
 const { protect, authorize } = require('../middlewares/authMiddleware');
 
-// 2. Cloudinary se upload middleware import karein (Yehi missing tha)
 const { upload } = require('../config/cloudinary');
 
 router.route('/')

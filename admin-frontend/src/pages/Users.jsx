@@ -1,10 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Trash2, Search, Users, CheckCircle, XCircle } from 'lucide-react';
 import { getAllUsers, updateUser, deleteUser } from '../api/adminApi';
 import toast from 'react-hot-toast';
 
-const UsersPage = () => {
+const UsersPage = React.memo(() => {
   const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
@@ -40,10 +40,12 @@ const UsersPage = () => {
     } catch { toast.error('Failed to update role'); }
   };
 
-  const filtered = users.filter(u =>
-    u.name?.toLowerCase().includes(search.toLowerCase()) ||
-    u.email?.toLowerCase().includes(search.toLowerCase())
-  );
+  const filtered = useMemo(() => {
+    return users.filter(u =>
+      u.name?.toLowerCase().includes(search.toLowerCase()) ||
+      u.email?.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [users, search]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -148,7 +150,7 @@ const UsersPage = () => {
               </table>
             </div>
 
-            {/* Mobile Card Layout */}
+            {}
             <div className="mobile-only" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {filtered.length > 0 ? filtered.map((u, i) => (
                 <div key={u._id || i} style={{ border: '1px solid var(--border)', borderRadius: '12px', padding: '16px', background: 'var(--bg-card)' }}>
@@ -214,6 +216,6 @@ const UsersPage = () => {
       </div>
     </div>
   );
-};
+});
 
 export default UsersPage;

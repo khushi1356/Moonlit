@@ -1,8 +1,5 @@
 const Coupon = require('../models/Coupon');
 
-// @desc    Create a new coupon
-// @route   POST /api/coupons
-// @access  Admin
 exports.createCoupon = async (req, res) => {
     try {
         const existing = await Coupon.findOne({ code: { $regex: new RegExp(`^${req.body.code}$`, 'i') } });
@@ -17,15 +14,10 @@ exports.createCoupon = async (req, res) => {
     }
 };
 
-// @desc    Get all coupons (Admin gets all, Public gets active)
-// @route   GET /api/coupons
-// @access  Public / Admin
 exports.getCoupons = async (req, res) => {
     try {
         let query = {};
-        // If it's a public request (from customer frontend), usually we'd only want active ones.
-        // But for admin dashboard, we want all. Let's just return all, or check if we can.
-        // Let's just return all for now to let admin manage them.
+
         const coupons = await Coupon.find();
         res.status(200).json({ success: true, data: coupons });
     } catch (error) {
@@ -33,9 +25,6 @@ exports.getCoupons = async (req, res) => {
     }
 };
 
-// @desc    Update a coupon
-// @route   PUT /api/coupons/:id
-// @access  Admin
 exports.updateCoupon = async (req, res) => {
     try {
         const coupon = await Coupon.findByIdAndUpdate(req.params.id, req.body, {
@@ -49,9 +38,6 @@ exports.updateCoupon = async (req, res) => {
     }
 };
 
-// @desc    Delete/Deactivate a coupon
-// @route   DELETE /api/coupons/:id
-// @access  Admin
 exports.deleteCoupon = async (req, res) => {
     try {
         const coupon = await Coupon.findByIdAndDelete(req.params.id);
@@ -62,9 +48,6 @@ exports.deleteCoupon = async (req, res) => {
     }
 };
 
-// @desc    Apply a coupon code
-// @route   POST /api/coupons/apply
-// @access  Public
 exports.applyCoupon = async (req, res) => {
     try {
         const { code, amount } = req.body;
@@ -102,7 +85,6 @@ exports.applyCoupon = async (req, res) => {
             discountAmount = coupon.discountValue;
         }
 
-        // Ensure discount doesn't exceed the total amount
         if (discountAmount > amount) {
             discountAmount = amount;
         }

@@ -58,11 +58,11 @@ const Profile = () => {
       </div>
 
       <motion.div initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} className="card" style={{ overflow: 'hidden' }}>
-        {/* Cover Banner */}
+        {}
         <div style={{ height: '120px', background: 'linear-gradient(135deg, var(--rose-dim), var(--purple-dim))' }}></div>
 
         <div style={{ padding: '0 32px 32px' }}>
-          {/* Avatar */}
+          {}
           <div style={{ position: 'relative', marginTop: '-48px', marginBottom: '24px' }}>
             <div style={{
               width: '96px', height: '96px', borderRadius: '50%',

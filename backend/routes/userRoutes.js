@@ -4,12 +4,10 @@ const { getProfile, updateProfile, getAllUsers, updateUser, deleteUser } = requi
 const { protect, authorize } = require('../middlewares/authMiddleware');
 const { upload } = require('../config/cloudinary');
 
-// Profile Routes (For logged in user)
 router.route('/profile')
     .get(protect, getProfile)
     .put(protect, upload.single('profilePic'), updateProfile);
 
-// Admin Only Routes
 router.route('/')
     .get(protect, authorize('admin'), getAllUsers);
 

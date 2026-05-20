@@ -33,7 +33,7 @@ const Sidebar = ({ onClose }) => {
       zIndex: 40,
     }}>
       
-      {/* Logo */}
+      {}
       <div style={{ padding: '24px 24px 20px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link to="/" onClick={() => onClose && onClose()} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <div
@@ -55,7 +55,7 @@ const Sidebar = ({ onClose }) => {
         </button>
       </div>
 
-      {/* Stylist Info */}
+      {}
       {stylist.name && (
         <div style={{ padding: '20px', borderBottom: '1px solid var(--border)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -78,7 +78,7 @@ const Sidebar = ({ onClose }) => {
         </div>
       )}
 
-      {/* Navigation */}
+      {}
       <nav style={{ flex: 1, padding: '24px 16px', display: 'flex', flexDirection: 'column', gap: '8px', overflowY: 'auto' }}>
         {menuItems.map((item) => {
           const isActive = location.pathname === item.path || (item.path !== '/' && location.pathname.startsWith(item.path));
@@ -110,7 +110,7 @@ const Sidebar = ({ onClose }) => {
         })}
       </nav>
 
-      {/* Logout & Credit */}
+      {}
       <div style={{ padding: '20px 16px', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <button
           onClick={handleLogout}

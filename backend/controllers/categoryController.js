@@ -1,8 +1,5 @@
 const Category = require('../models/Category');
 
-// @desc    Create a new category
-// @route   POST /api/categories
-// @access  Admin
 exports.createCategory = async (req, res) => {
     try {
         const { name, description } = req.body;
@@ -19,7 +16,7 @@ exports.createCategory = async (req, res) => {
         const category = await Category.create({
             name,
             description,
-            image: req.file.path // Cloudinary URL
+            image: req.file.path 
         });
 
         res.status(201).json({ success: true, data: category });
@@ -28,9 +25,6 @@ exports.createCategory = async (req, res) => {
     }
 };
 
-// @desc    Get all categories
-// @route   GET /api/categories
-// @access  Public
 exports.getCategories = async (req, res) => {
     try {
         const categories = await Category.find();
@@ -40,9 +34,6 @@ exports.getCategories = async (req, res) => {
     }
 };
 
-// @desc    Update category
-// @route   PUT /api/categories/:id
-// @access  Admin
 exports.updateCategory = async (req, res) => {
     try {
         let category = await Category.findById(req.params.id);
@@ -60,9 +51,6 @@ exports.updateCategory = async (req, res) => {
     }
 };
 
-// @desc    Delete category
-// @route   DELETE /api/categories/:id
-// @access  Admin
 exports.deleteCategory = async (req, res) => {
     try {
         const category = await Category.findById(req.params.id);

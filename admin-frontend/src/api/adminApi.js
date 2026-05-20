@@ -1,6 +1,5 @@
 import apiClient from './client';
 
-// --- Admin Dashboard ---
 export const getDashboardStats = async () => {
   const response = await apiClient.get('/admin/dashboard');
   return response.data;
@@ -14,7 +13,6 @@ export const getRevenue = async () => {
   return response.data;
 };
 
-// --- Bookings ---
 export const getAdminBookings = async () => {
   const response = await apiClient.get('/bookings');
   return response.data;
@@ -28,7 +26,6 @@ export const deleteBooking = async (id) => {
   return response.data;
 };
 
-// --- Users ---
 export const getAllUsers = async () => {
   const response = await apiClient.get('/users');
   return response.data;
@@ -42,7 +39,6 @@ export const deleteUser = async (id) => {
   return response.data;
 };
 
-// --- Services ---
 export const getServices = async () => {
   const response = await apiClient.get('/services');
   return response.data;
@@ -60,7 +56,6 @@ export const deleteService = async (id) => {
   return response.data;
 };
 
-// --- Categories ---
 export const getCategories = async () => {
   const response = await apiClient.get('/categories');
   return response.data;
@@ -82,7 +77,6 @@ export const deleteCategory = async (id) => {
   return response.data;
 };
 
-// --- Stylists ---
 export const getStylists = async () => {
   const response = await apiClient.get('/stylists');
   return response.data;
@@ -100,7 +94,6 @@ export const deleteStylist = async (id) => {
   return response.data;
 };
 
-// --- Gallery ---
 export const getGallery = async () => {
   const response = await apiClient.get('/gallery');
   return response.data;
@@ -114,7 +107,6 @@ export const deleteGalleryItem = async (id) => {
   return response.data;
 };
 
-// --- Reviews ---
 export const getAllReviews = async () => {
   const response = await apiClient.get('/reviews');
   return response.data;
@@ -124,7 +116,6 @@ export const deleteReview = async (id) => {
   return response.data;
 };
 
-// --- Coupons ---
 export const getCoupons = async () => {
   const response = await apiClient.get('/coupons');
   return response.data;
@@ -142,13 +133,11 @@ export const deleteCoupon = async (id) => {
   return response.data;
 };
 
-// --- Payments ---
 export const getAllPayments = async () => {
   const response = await apiClient.get('/payments/history');
   return response.data;
 };
 
-// --- Contact Messages ---
 export const getContactMessages = async () => {
   const response = await apiClient.get('/contact');
   return response.data;
@@ -166,7 +155,6 @@ export const replyToContact = async (id, replyMessage) => {
   return response.data;
 };
 
-// --- Email Campaigns (Marketing) ---
 export const getCampaigns = async () => {
   const response = await apiClient.get('/marketing');
   return response.data;

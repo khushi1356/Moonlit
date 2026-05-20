@@ -111,7 +111,7 @@ const PaymentsPage = () => {
               </table>
             </div>
 
-            {/* Mobile Card Layout */}
+            {}
             <div className="mobile-only" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {capturedPayments.length > 0 ? capturedPayments.map((p, i) => (
                 <div key={p._id || i} style={{ border: '1px solid var(--border)', borderRadius: '12px', padding: '16px', background: 'var(--bg-card)' }}>

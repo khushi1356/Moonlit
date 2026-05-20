@@ -1,14 +1,15 @@
-import { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Send } from 'lucide-react';
 import { submitContact } from '../api/contactApi';
 import toast from 'react-hot-toast';
+import SEO from '../components/seo/SEO';
 
-const Contact = () => {
+const Contact = React.memo(() => {
   const [formData, setFormData] = useState({ name: '', email: '', subject: '', message: '' });
   const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = useCallback(async (e) => {
     e.preventDefault();
     setLoading(true);
     try {
@@ -20,10 +21,14 @@ const Contact = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [formData]);
 
   return (
     <div className="min-h-screen pt-32 pb-24 bg-[var(--color-bg-light)] text-[var(--color-primary)]">
+      <SEO 
+        title="Contact Us" 
+        description="Get in touch with Moonlit Salon & Spa. Reach out for inquiries, feedback, or assistance with your bookings."
+      />
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="text-center mb-24">
           <motion.p 
@@ -41,7 +46,7 @@ const Contact = () => {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-          {/* Contact Form */}
+          {}
           <motion.div initial={{ opacity: 0, x: -20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.3 }} className="bg-[var(--color-surface-light)] p-12 md:p-16 shadow-xl rounded-xl">
             <h3 className="text-2xl font-serif uppercase tracking-wide mb-12 border-b border-[var(--color-primary)]/10 pb-4 text-[var(--color-primary)]">Correspondence</h3>
             <form onSubmit={handleSubmit} className="space-y-8">
@@ -104,7 +109,7 @@ const Contact = () => {
             </form>
           </motion.div>
 
-          {/* Contact Information & Map */}
+          {}
           <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.4 }} className="space-y-12 flex flex-col justify-between">
             <div className="space-y-12">
               <div className="border-l border-[var(--color-primary)]/10 pl-8">
@@ -124,7 +129,7 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Minimalist Map Placeholder */}
+            {}
             <div className="h-64 bg-gray-100 grayscale hover:grayscale-0 transition-all duration-1000 w-full mt-8">
                <iframe 
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3304.341490226344!2d-118.403487384784!3d34.08636498059632!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x80c2bc04d6d147ab%3A0xd6c7c379fd081ed1!2sBeverly%20Hills%2C%20CA%2090210!5e0!3m2!1sen!2sus!4v1655000000000!5m2!1sen!2sus" 
@@ -142,6 +147,6 @@ const Contact = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Contact;

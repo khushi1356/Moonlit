@@ -1,10 +1,4 @@
-/**
- * Run this once to fix your admin account:
- * node fix-admin.js
- *
- * It marks the user with role=admin as isEmailVerified=true
- * so they can log into the Admin Portal.
- */
+
 
 const mongoose = require('mongoose');
 require('dotenv').config();
@@ -16,7 +10,6 @@ const fix = async () => {
     await mongoose.connect(process.env.MONGO_URI);
     console.log('Connected to MongoDB');
 
-    // Mark ALL admin & stylist users as verified
     const result = await User.updateMany(
       { role: { $in: ['admin', 'stylist'] } },
       { $set: { isEmailVerified: true } }

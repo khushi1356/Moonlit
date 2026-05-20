@@ -1,10 +1,11 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Play, X } from 'lucide-react';
 import { getGallery } from '../api/galleryApi';
-import { FadeUp, RevealText } from '../components/Animations';
+import { FadeUp, RevealText } from '../components/animations';
+import SEO from '../components/seo/SEO';
 
-const Gallery = () => {
+const Gallery = React.memo(() => {
   const [activeTab, setActiveTab] = useState('All');
   const [galleryImages, setGalleryImages] = useState([]);
   const [categories, setCategories] = useState(['All']);
@@ -29,11 +30,17 @@ const Gallery = () => {
     fetchGallery();
   }, []);
 
-  const filteredImages = activeTab === 'All' ? galleryImages : galleryImages.filter(img => (img.category || 'Other') === activeTab);
+  const filteredImages = useMemo(() => {
+    return activeTab === 'All' ? galleryImages : galleryImages.filter(img => (img.category || 'Other') === activeTab);
+  }, [activeTab, galleryImages]);
 
   return (
     <div className="min-h-screen pt-32 pb-24 bg-[var(--color-bg-light)] text-[var(--color-primary)]">
-      {/* Header */}
+      <SEO 
+        title="Gallery" 
+        description="View our portfolio of beautiful hair styles, elegant nail art, and flawless skin treatments at Moonlit Salon."
+      />
+      {}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mb-20 flex flex-col items-center text-center">
         <FadeUp>
           <p className="text-xs tracking-widest uppercase font-bold text-gray-400 mb-6">
@@ -42,7 +49,7 @@ const Gallery = () => {
         </FadeUp>
         <RevealText as="h1" text="Visual Poetry" className="text-6xl md:text-8xl font-serif uppercase tracking-tighter justify-center" />
 
-        {/* Filter Tabs */}
+        {}
         {!loading && categories.length > 1 && (
           <motion.div 
             initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.4 }}
@@ -63,7 +70,7 @@ const Gallery = () => {
         )}
       </div>
 
-      {/* Masonry Grid */}
+      {}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         {loading ? (
           <div className="columns-1 md:columns-2 lg:columns-3 gap-6 space-y-6">
@@ -83,7 +90,7 @@ const Gallery = () => {
                   initial={{ opacity: 0, y: 30 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, scale: 0.95 }}
-                  viewport={{ once: false, amount: 0.1 }}
+                  viewport={{ once: true, amount: 0.1 }}
                   transition={{ duration: 0.6, delay: (i % 3) * 0.1 }}
                   className="relative group overflow-hidden break-inside-avoid cursor-pointer bg-gray-100"
                   onClick={() => setSelectedImg(image.imageUrl)}
@@ -109,7 +116,7 @@ const Gallery = () => {
         )}
       </div>
 
-      {/* Lightbox */}
+      {}
       <AnimatePresence>
         {selectedImg && (
           <motion.div 
@@ -139,10 +146,10 @@ const Gallery = () => {
         )}
       </AnimatePresence>
 
-      {/* High Fashion Video Teaser Section */}
+      {}
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 mt-32">
         <div className="relative overflow-hidden h-[50vh] md:h-[70vh] flex items-center justify-center group cursor-pointer">
-          {/* USER: PUT AI VIDEO URL HERE OR AI GENERATED SALON VIDEO GIF */}
+          {}
           <div 
             className="absolute inset-0 bg-cover bg-center transition-all duration-1000 group-hover:scale-105"
             style={{ backgroundImage: "url('https://images.unsplash.com/photo-1516975080661-46bfa2c281c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=80')" }}
@@ -159,6 +166,6 @@ const Gallery = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Gallery;

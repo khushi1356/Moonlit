@@ -1,6 +1,5 @@
 import apiClient from './client';
 
-// --- Auth ---
 export const loginStylist = async (credentials) => {
   const response = await apiClient.post('/auth/login', credentials);
   return response.data;
@@ -16,7 +15,6 @@ export const updateStylistProfile = async (data) => {
   return response.data;
 };
 
-// --- Bookings ---
 export const getStylistBookings = async () => {
   const response = await apiClient.get('/bookings');
   return response.data;
@@ -27,9 +25,6 @@ export const updateBookingStatus = async (id, status) => {
   return response.data;
 };
 
-
-
-// --- Notifications ---
 export const getMyNotifications = async () => {
   const response = await apiClient.get('/notifications');
   return response.data;

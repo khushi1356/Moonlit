@@ -150,7 +150,7 @@ const seed = async () => {
         bio: s.bio,
         specialization: s.specialization,
         experience: s.experience,
-        rating: (Math.random() * 2 + 3).toFixed(1), // 3.0 - 5.0 random rating
+        rating: (Math.random() * 2 + 3).toFixed(1), 
       });
 
       console.log(`✅ Created: ${s.name} (${s.email})`);

@@ -36,7 +36,7 @@ const Topbar = ({ toggleSidebar }) => {
       zIndex: 40,
       flexShrink: 0,
     }}>
-      {/* Left */}
+      {}
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
         <button onClick={toggleSidebar} style={{
           display: 'none', background: 'none', border: 'none',
@@ -53,13 +53,10 @@ const Topbar = ({ toggleSidebar }) => {
         </div>
       </div>
 
-      {/* Right */}
+      {}
       <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
 
-
-
-
-        {/* Admin Avatar */}
+        {}
         <div style={{ display: 'flex', alignItems: 'center', gap: '10px', paddingLeft: '12px', borderLeft: '1px solid var(--border)' }}>
           <div style={{
             width: '36px', height: '36px', borderRadius: '50%',

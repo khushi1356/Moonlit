@@ -11,7 +11,7 @@ cloudinary.config({
 const storage = new CloudinaryStorage({
     cloudinary: cloudinary,
     params: {
-        folder: 'salon_management', // Cloudinary par folder ka naam
+        folder: 'salon_management', 
         allowed_formats: ['jpg', 'jpeg', 'png', 'webp', 'avif', 'gif', 'svg'],
     },
 });

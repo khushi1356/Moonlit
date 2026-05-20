@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { motion } from 'framer-motion';
 import { Search, CheckCircle, XCircle, Calendar, IndianRupee, Clock } from 'lucide-react';
 import { getAdminBookings, updateBookingStatus } from '../api/adminApi';
@@ -11,7 +11,7 @@ const statusBadge = (s) => {
   return 'badge-amber';
 };
 
-const Bookings = () => {
+const Bookings = React.memo(() => {
   const [searchTerm, setSearchTerm] = useState('');
   const [bookings, setBookings] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -35,11 +35,13 @@ const Bookings = () => {
     } catch { toast.error('Failed to update status'); }
   };
 
-  const filtered = bookings.filter(b =>
-    (b._id || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (b.userId?.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
-    (b.serviceIds?.[0]?.name || '').toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filtered = useMemo(() => {
+    return bookings.filter(b =>
+      (b._id || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (b.userId?.name || '').toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (b.serviceIds?.[0]?.name || '').toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  }, [bookings, searchTerm]);
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
@@ -51,7 +53,7 @@ const Bookings = () => {
       </div>
 
       <div className="card" style={{ overflow: 'hidden' }}>
-        {/* Toolbar */}
+        {}
         <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', gap: '12px', alignItems: 'center' }}>
           <div style={{ position: 'relative', flex: 1, maxWidth: '400px' }}>
             <Search size={14} style={{ position: 'absolute', left: '12px', top: '50%', transform: 'translateY(-50%)', color: 'var(--text-muted)' }} />
@@ -160,7 +162,7 @@ const Bookings = () => {
               </table>
             </div>
 
-            {/* Mobile Card Layout */}
+            {}
             <div className="mobile-only" style={{ padding: '16px', display: 'flex', flexDirection: 'column', gap: '16px' }}>
               {filtered.length > 0 ? filtered.map((b, i) => (
                 <div key={b._id || i} style={{ border: '1px solid var(--border)', borderRadius: '12px', padding: '16px', background: 'var(--bg-card)' }}>
@@ -223,6 +225,6 @@ const Bookings = () => {
       </div>
     </div>
   );
-};
+});
 
 export default Bookings;

@@ -59,7 +59,7 @@ const Sidebar = ({ onClose }) => {
       top: 0,
       flexShrink: 0,
     }}>
-      {/* Logo */}
+      {}
       <div style={{ padding: '24px 24px 20px', borderBottom: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link to="/" onClick={() => onClose && onClose()} style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', justifyContent: 'center' }}>
           <div
@@ -81,7 +81,7 @@ const Sidebar = ({ onClose }) => {
         </button>
       </div>
 
-      {/* Nav */}
+      {}
       <nav style={{ flex: 1, overflowY: 'auto', padding: '16px 12px' }}>
         {menuGroups.map((group) => (
           <div key={group.label} style={{ marginBottom: '24px' }}>
@@ -115,7 +115,7 @@ const Sidebar = ({ onClose }) => {
         ))}
       </nav>
 
-      {/* Logout & Credit */}
+      {}
       <div style={{ padding: '16px 12px', borderTop: '1px solid var(--border)', display: 'flex', flexDirection: 'column', gap: '16px' }}>
         <button onClick={handleLogout} style={{
           width: '100%', display: 'flex', alignItems: 'center', gap: '10px',

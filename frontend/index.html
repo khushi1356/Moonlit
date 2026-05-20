@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="title" content="Moonlit Salon & Spa - Premium Beauty Services">
     <meta name="description" content="Experience luxury beauty treatments, expert styling, and rejuvenating spa services at Moonlit Salon & Spa. Book your appointment today.">
-    
+
     <!-- Open Graph / Social Media Sharing -->
     <meta property="og:type" content="website">
     <meta property="og:title" content="Moonlit Salon & Spa - Premium Beauty Services">
@@ -20,9 +20,24 @@
     <meta name="twitter:description" content="Experience luxury beauty treatments, expert styling, and rejuvenating spa services at Moonlit Salon & Spa. Book your appointment today.">
     <meta name="twitter:image" content="https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80">
 
+    <!-- DNS prefetch for external resources -->
+    <link rel="dns-prefetch" href="https://images.unsplash.com">
+    <link rel="dns-prefetch" href="https://ui-avatars.com">
+
+    <!-- Google Fonts — preconnect then load NON-blocking (prevents render-blocking) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap"
+      onload="this.onload=null;this.rel='stylesheet'"
+    >
+    <!-- Fallback for no-JS browsers -->
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@300;400;500;600;700;800&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    </noscript>
+
     <title>Moonlit Salon & Spa</title>
   </head>
   <body>

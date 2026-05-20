@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { Link } from 'react-router-dom';
 import { Scissors, Heart, Award, Users, Sparkles, ArrowRight } from 'lucide-react';
-import { FadeUp, RevealText } from '../components/Animations';
+import { FadeUp, RevealText } from '../components/animations';
 import about1 from '../assets/about1.avif';
 import about2 from '../assets/about2.avif';
 
@@ -40,7 +40,7 @@ const About = () => {
   return (
     <div className="w-full bg-[var(--color-secondary)] text-[var(--color-text-dark)] overflow-hidden font-sans">
 
-      {/* ====== HERO ====== */}
+      {}
       <section className="relative w-full min-h-[70vh] flex items-end overflow-hidden">
         <img
           src={about1}
@@ -66,7 +66,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* ====== PHILOSOPHY ====== */}
+      {}
       <section className="w-full bg-white py-28 px-8 md:px-16">
         <div className="max-w-[1200px] mx-auto grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
           <div className="flex flex-col items-start">
@@ -194,7 +194,7 @@ const About = () => {
             </blockquote>
             <div className="mt-10 flex items-center gap-4">
               <div className="w-12 h-12 rounded-full overflow-hidden bg-gray-200">
-                <img src="https://images.unsplash.com/photo-1595959183082-7b570b7e08e2?w=200&q=80" alt="founder" className="w-full h-full object-cover" />
+                <img src="https:
               </div>
               <div>
                 <p className="font-bold text-[var(--color-primary)] text-sm">Aanya Sharma</p>
@@ -212,7 +212,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* ====== CTA ====== */}
+      {}
       <section className="w-full bg-[var(--color-primary)] py-24 px-8 md:px-16 text-center flex flex-col items-center">
         <RevealText as="h2" text="Ready to Experience the Moonlit Difference?" className="font-serif text-white uppercase tracking-tighter justify-center mb-10" style={{ fontSize: 'clamp(2.5rem, 5vw, 5rem)' }} />
         <FadeUp>
